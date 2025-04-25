@@ -15,7 +15,9 @@ CORS(app)
 
 
 # Load the TensorFlow model once at startup
-model = tf.keras.models.load_model('model_res.h5')
+GITHUB_URL = "https://github.com/Nalito/skinsight-AI/releases/download/feliz/model_res.h5"
+local_file = tf.keras.utils.get_file("model_res.h5", origin=GITHUB_URL)
+model = tf.keras.models.load_model(local_file)
 
 # Define your class names
 class_names = ['Eczema', 'Folliculitis', 'Insect Bite', 'Tinea', 'Urticaria']
