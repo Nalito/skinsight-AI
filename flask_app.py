@@ -5,6 +5,7 @@ import numpy as np
 from PIL import Image
 import io
 import base64
+from huggingface_hub import hf_hub_download
 #from recommender import get_recommendation
 
 app = Flask(__name__)
@@ -15,9 +16,14 @@ CORS(app)
 
 
 # Load the TensorFlow model once at startup
-GITHUB_URL = "https://github.com/Nalito/skinsight-AI/releases/download/feliz/model_res.h5"
-local_file = tf.keras.utils.get_file("model_res.h5", origin=GITHUB_URL)
-model = tf.keras.models.load_model(local_file)
+#GITHUB_URL = "https://github.com/Nalito/skinsight-AI/releases/download/feliz/model_res.h5"
+#local_file = tf.keras.utils.get_file("model_res.h5", origin=GITHUB_URL)
+local_path = hf_hub_download(
+    repo_id="Nalito-dev/skinsight",
+    filename="model_res.h5"
+)
+model = tf.keras.models.load_model(local_path)
+#model = tf.keras.models.load_model(local_file)
 
 # Define your class names
 class_names = ['Eczema', 'Folliculitis', 'Insect Bite', 'Tinea', 'Urticaria']
